@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Webcam Tracking (Face, Hands, Objects)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="color-scheme" content="dark light" />
+    <style>
+      .stack {
+        position: relative;
+      }
+      .stack > * {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-5xl mx-auto p-4 md:p-8">
+      <header class="mb-6 flex items-center justify-between gap-4">
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight">
+          🎥 Webcam Tracking (Face, Eyes, Hands, Objects)
+        </h1>
+      </header>
+
+      <section class="bg-zinc-900/60 rounded-2xl p-4 md:p-6 shadow-lg ring-1 ring-white/5">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-semibold">Live preview + overlays</h2>
+          <div class="flex items-center gap-3 text-sm">
+            <label class="flex items-center gap-2">
+              <input id="toggleFace" type="checkbox" class="accent-emerald-500" checked />
+              <span class="opacity-80">Eyes/Face</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input id="toggleHands" type="checkbox" class="accent-emerald-500" checked />
+              <span class="opacity-80">Hands</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input id="toggleObjects" type="checkbox" class="accent-emerald-500" checked />
+              <span class="opacity-80">Objects</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="stack aspect-video max-h-[70vh] rounded-xl overflow-hidden ring-1 ring-white/10 bg-black/40">
+          <video id="video" autoplay playsinline muted class="w-full h-full object-cover"></video>
+          <canvas id="overlay"></canvas>
+        </div>
+
+        <div class="mt-4 flex flex-wrap items-center gap-3">
+          <button id="startBtn" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 transition">
+            Start camera
+          </button>
+          <button id="pauseBtn" class="px-4 py-2 rounded-xl bg-zinc-700 hover:bg-zinc-600 transition" disabled>
+            Pause
+          </button>
+          <button id="snapshotVideoBtn" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 transition" disabled>
+            Save snapshot
+          </button>
+          <span id="fps" class="ml-3 text-sm opacity-70">FPS: —</span>
+        </div>
+      </section>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.18.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"></script>
+
+    <!-- App -->
+    <script type="module" src="/static/main.js"></script>
+  </body>
+</html>
